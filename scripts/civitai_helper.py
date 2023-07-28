@@ -130,6 +130,7 @@ def on_ui_tabs():
                 get_civitai_model_info_by_id_btn = gr.Button(value="Get Model Info from Civitai", variant="primary")
                 get_model_by_id_log_md = gr.Markdown("")
 
+
         with gr.Box(elem_classes="ch_box"):
             with gr.Column():
                 gr.Markdown("### Download Model")
@@ -144,11 +145,32 @@ def on_ui_tabs():
                     dl_subfolder_drop = gr.Dropdown(choices=[], label="Sub-folder", value="", interactive=True, multiselect=False)
                     dl_version_drop = gr.Dropdown(choices=[], label="Model Version", value="", interactive=True, multiselect=False)
                     dl_all_ckb = gr.Checkbox(label="Download All files", value=False, elem_id="ch_dl_all_ckb", elem_classes="ch_vpadding")
-                
-                dl_civitai_model_by_id_btn = gr.Button(value="3. Download Model", variant="primary")
-                dl_log_md = gr.Markdown(value="Check Console log for Downloading Status")
 
-        with gr.Box(elem_classes="ch_box"):
+                with gr.Row():
+                    gr.Markdown("")
+                    aria_checkbox = gr.Checkbox(label="Use aria2c", value=False, elem_id="ch_aria_checkbox", elem_classes="ch_vpadding")
+                    connections_txtbox = gr.Textbox(label="Connections", interactive=True, lines=1, value="16", info="aria2c option")
+
+                
+                with gr.Box(elem_classes="ch_box"):
+                    with gr.Column():
+                        with gr.Box(elem_classes="ch_box"):
+                            with gr.Column():
+                                gr.Markdown("### Other Setting")
+                                with gr.Row():
+                                    open_url_with_js_ckb = gr.Checkbox(label="Open Url At Client Side", value=False, elem_id="ch_open_url_with_js_ckb")
+                                    always_display_ckb = gr.Checkbox(label="Always Display Buttons", value=False, elem_id="ch_always_display_ckb")
+                                    show_btn_on_thumb_ckb = gr.Checkbox(label="Show Button On Thumb Mode", value=False, elem_id="ch_show_btn_on_thumb_ckb")
+
+                                proxy_txtbox = gr.Textbox(label="Proxy", interactive=True, lines=1, value="", info="format: http://127.0.0.1:port")
+
+                                save_setting_btn = gr.Button(value="Save Setting")
+                                general_log_md = gr.Markdown(value="")
+
+                            dl_civitai_model_by_id_btn = gr.Button(value="3. Download Model", variant="primary")
+                            dl_log_md = gr.Markdown(value="Check Console log for Downloading Status")
+
+        with gr.Box(elem_classes="ch_box"): 
             with gr.Column():
                 gr.Markdown("### Check models' new version")
                 with gr.Row():
@@ -213,6 +235,5 @@ def on_ui_tabs():
     return (civitai_helper , "Civitai Helper", "civitai_helper"),
 
 script_callbacks.on_ui_tabs(on_ui_tabs)
-
 
 
